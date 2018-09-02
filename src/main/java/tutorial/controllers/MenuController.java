@@ -1,4 +1,4 @@
-package tutorial.conctrollers;
+package tutorial.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
