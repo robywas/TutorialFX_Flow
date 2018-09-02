@@ -15,42 +15,59 @@ public class BindingController {
 
     @FXML
     private TextField nameTextField;
+
     @FXML
     private Label nameLabel;
+
     @FXML
     private TextField surnameTextField;
+
     @FXML
     private Label surnameLabel;
+
     @FXML
     private TextField yearTextField;
+
     @FXML
     private CheckBox confirmCheckBox;
+
     @FXML
     private Button logginButton;
+
     @FXML
     private Label ageLabel;
-    @FXML
+
     private PersonViewModel personViewModel = new PersonViewModel();
 
     @FXML
-    public void initialize(){
+    public void initialize() {
+        // textProperty bindujemy z property typu String
         nameTextField.textProperty().bindBidirectional(personViewModel.getNameProperty());
+        // textProperty bindujemy z property typu String
         surnameTextField.textProperty().bindBidirectional(personViewModel.getSurnameProperty());
-        surnameTextField.disableProperty().bindBidirectional(personViewModel.getDisableSurnameProperty());
 
-        StringConverter converter = new NumberStringConverter();
+        // disableProperty bidnujemy z property typu Boolen - bedzie wlaczac
+        // wylaczac pole
+        surnameTextField.disableProperty().bind(personViewModel.getDisableSurnameProperty());
 
-        yearTextField.textProperty().bindBidirectional(personViewModel.getYearProperty(), converter);
+        // konwenter to konwertowania String na Number
+        StringConverter conventer = new NumberStringConverter();
+        // bindowanie z konwenterem, textProperty bindujemy z IntegerProperty
+        yearTextField.textProperty().bindBidirectional(personViewModel.getYearProperty(), conventer);
 
+        // selectedProperty bindujemy z property typi Boolean
         confirmCheckBox.selectedProperty().bindBidirectional(personViewModel.getConfirmProperty());
 
-        nameLabel.visibleProperty().bindBidirectional(personViewModel.getNameOkProperty());
-        surnameLabel.visibleProperty().bindBidirectional(personViewModel.getSurnameOKProperty());
+        // Label bindujemy z property typu String, obliczona wartoscia wieku
+        ageLabel.textProperty().bind(personViewModel.getAgeProperty());
 
-        logginButton.disableProperty().bindBidirectional(personViewModel.getButtonProperty());
+        // dwa labele bindujemy z property typu Boolean, steruje ich
+        // widocznoscia
+        nameLabel.visibleProperty().bind(personViewModel.getNameOkProperty());
+        surnameLabel.visibleProperty().bind(personViewModel.getSurnameOKProperty());
 
-
+        // przycisk bindujemy z property typu Boolean
+        logginButton.disableProperty().bind(personViewModel.getButtonProperty());
     }
-
 
 }

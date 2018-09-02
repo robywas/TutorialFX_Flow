@@ -6,7 +6,6 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 
 public class PersonViewModel {
-
     // textfield imie
     private StringProperty nameProperty = new SimpleStringProperty();
 
